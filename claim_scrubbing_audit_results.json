@@ -1,0 +1,121 @@
+[
+  {
+    "encounter_id": "ENC-1001",
+    "patient_token": "TOKEN-1001",
+    "status": "HOLD_FOR_REVIEW",
+    "denial_risk_score": 80,
+    "detected_issues": [
+      {
+        "issue_type": "MISSING_MODIFIER_25",
+        "severity": "HIGH",
+        "cpt_affected": [
+          "99214"
+        ],
+        "icd_affected": [
+          "I10"
+        ],
+        "description": "Evaluation & Management code 99214 billed on the same date as Knee MRI 73721 without required Modifier 25. Will trigger commercial/Medicare bundling denial CO-97.",
+        "policy_reference": "CMS Claims Processing Manual Ch. 12 \u00a730.6.6 & NCCI Policy Manual Ch. 1"
+      },
+      {
+        "issue_type": "MISSING_LATERALITY",
+        "severity": "HIGH",
+        "cpt_affected": [
+          "73721"
+        ],
+        "icd_affected": [
+          "M23.22",
+          "M17.11"
+        ],
+        "description": "Knee MRI procedure 73721 operates on paired anatomical extremity but lacks mandated laterality modifier (-RT). Diagnosis M23.22 explicitly specifies Right Knee.",
+        "policy_reference": "Medicare Claims Processing Manual Ch. 23 & Payer Imaging Matrix"
+      }
+    ],
+    "recommended_fixes": [
+      {
+        "action": "APPEND_MODIFIER",
+        "target_code": "99214",
+        "suggested_modifier": "-25",
+        "rationale": "Append Modifier 25 to 99214 (yielding 99214-25). Documentation establishes distinct 30-minute cognitive E/M for hypertension."
+      },
+      {
+        "action": "APPEND_MODIFIER",
+        "target_code": "73721",
+        "suggested_modifier": "-RT",
+        "rationale": "Append -RT modifier to CPT 73721 (yielding 73721-RT) matching documented right knee meniscal tear."
+      }
+    ],
+    "compliance_summary": "Held claim pre-submission: 2 compliance issue(s) flagged. Remediation required to avoid estimated 80% denial rate.",
+    "first_pass_reimbursement_estimate": "$0.00 (Blocked Pending Remediation)"
+  },
+  {
+    "encounter_id": "ENC-1002",
+    "patient_token": "TOKEN-1002",
+    "status": "CLEAN",
+    "denial_risk_score": 4,
+    "detected_issues": [],
+    "recommended_fixes": [],
+    "compliance_summary": "Claim passed all LCD, modifier, and NCCI compliance edits with 0 errors. Approved for ASC X12 837P pre-submission.",
+    "first_pass_reimbursement_estimate": "$580.00"
+  },
+  {
+    "encounter_id": "ENC-1003",
+    "patient_token": "TOKEN-1003",
+    "status": "HOLD_FOR_REVIEW",
+    "denial_risk_score": 95,
+    "detected_issues": [
+      {
+        "issue_type": "MEDICAL_NECESSITY_MISMATCH",
+        "severity": "CRITICAL",
+        "cpt_affected": [
+          "70551"
+        ],
+        "icd_affected": [
+          "G44.209"
+        ],
+        "description": "Brain MRI (CPT 70551) fails LCD-BRAIN-MRI medical necessity criteria. Linked diagnosis G44.209 (uncomplicated tension headache) without focal neurological deficits, seizure, or trauma is a non-covered indication.",
+        "policy_reference": "CMS LCD-BRAIN-MRI & Title XVIII Social Security Act \u00a71862(a)(1)(A)"
+      }
+    ],
+    "recommended_fixes": [
+      {
+        "action": "REMOVE_CODE",
+        "target_code": "70551",
+        "suggested_modifier": null,
+        "rationale": "Hold claim pre-submission. Remove CPT 70551 or request provider clinical addendum documenting qualifying neurological red flags (e.g. papilledema, focal weakness)."
+      }
+    ],
+    "compliance_summary": "Held claim pre-submission: 1 compliance issue(s) flagged. Remediation required to avoid estimated 95% denial rate.",
+    "first_pass_reimbursement_estimate": "$0.00 (Blocked Pending Remediation)"
+  },
+  {
+    "encounter_id": "ENC-1004",
+    "patient_token": "TOKEN-1004",
+    "status": "HOLD_FOR_REVIEW",
+    "denial_risk_score": 80,
+    "detected_issues": [
+      {
+        "issue_type": "NCCI_BUNDLING",
+        "severity": "HIGH",
+        "cpt_affected": [
+          "36415"
+        ],
+        "icd_affected": [
+          "Z00.00"
+        ],
+        "description": "Routine venipuncture (CPT 36415) is an NCCI Column 2 component bundled into comprehensive preventive visit 99396. Lacks documented separate site or independent clinical session modifier 59.",
+        "policy_reference": "NCCI Policy Manual Chapter 1 Section B & CMS Preventive Medicine Bundling Rules"
+      }
+    ],
+    "recommended_fixes": [
+      {
+        "action": "REMOVE_CODE",
+        "target_code": "36415",
+        "suggested_modifier": null,
+        "rationale": "Remove CPT 36415 from claim or bundle fee into preventive service. Routine venipuncture during annual exam is not separately reimbursable without Modifier 59."
+      }
+    ],
+    "compliance_summary": "Held claim pre-submission: 1 compliance issue(s) flagged. Remediation required to avoid estimated 80% denial rate.",
+    "first_pass_reimbursement_estimate": "$0.00 (Blocked Pending Remediation)"
+  }
+]

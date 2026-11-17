@@ -1,0 +1,42 @@
+{
+  "sandbox": {
+    "enabled": true,
+    "mode": "strict",
+    "network": "restricted",
+    "filesystem": {
+      "mode": "workspace-only",
+      "allow_paths": [
+        "."
+      ],
+      "deny_paths": [
+        "~/.ssh",
+        "~/.aws",
+        "/etc"
+      ]
+    }
+  },
+  "compliance": {
+    "hipaa": {
+      "enforce_safe_harbor": true,
+      "redact_phi_pre_execution": true,
+      "audit_trail": true
+    }
+  },
+  "hooks": {
+    "phi-redactor": {
+      "enabled": true,
+      "PreToolUse": [
+        {
+          "matcher": "*",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python3 phi_redaction_hook.py",
+              "timeout": 15
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
