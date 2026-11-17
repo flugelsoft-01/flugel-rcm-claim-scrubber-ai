@@ -1,0 +1,12 @@
+# robots.txt for Flugelsoft Labs Healthcare RCM Platform
+User-agent: *
+Allow: /
+Allow: /?tab=single-claim&encounter=ENC-1001
+Allow: /?tab=single-claim&encounter=ENC-1002
+Allow: /?tab=single-claim&encounter=ENC-1003
+Allow: /?tab=single-claim&encounter=ENC-1004
+Allow: /?tab=batch-audit
+Allow: /?tab=appeals
+Allow: /docs/
+
+Sitemap: https://flugel-rcm-claim-scrubber-ai.streamlit.app/sitemap.xml

@@ -32,11 +32,98 @@ from run_agent import (
 # Streamlit Page Configuration & Custom CSS
 # -----------------------------------------------------------------------------
 st.set_page_config(
-    page_title="Healthcare RCM Multi-Agent Claim Scrubber",
+    page_title="Healthcare RCM Multi-Agent Claim Scrubber | Flugelsoft Labs",
     page_icon="🩺",
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# -----------------------------------------------------------------------------
+# SEO, GEO, Open Graph & Schema.org JSON-LD Metadata Injection
+# -----------------------------------------------------------------------------
+SEO_GEO_META_HTML = """
+<!-- Canonical SEO & GEO Metadata Injection -->
+<script>
+(function() {
+    const head = window.parent.document.head || document.head;
+    
+    function setMeta(name, content, isProperty=false) {
+        const attr = isProperty ? 'property' : 'name';
+        let el = head.querySelector(`meta[${attr}="${name}"]`);
+        if (!el) {
+            el = window.parent.document.createElement('meta');
+            el.setAttribute(attr, name);
+            head.appendChild(el);
+        }
+        el.setAttribute('content', content);
+    }
+
+    // Standard SEO Tags
+    setMeta('description', 'Enterprise Healthcare Revenue Cycle Management (RCM) Multi-Agent System by Flugelsoft Labs. Automated pre-submission claim scrubbing, CMS LCD medical necessity validation, Modifier 25, Laterality, and NCCI bundling edits.');
+    setMeta('keywords', 'Healthcare RCM, Pre-submission Claim Scrubbing, Medical Billing AI, ICD-10 CPT Compliance, CMS LCD Medical Necessity, Modifier 25, Laterality Modifiers RT LT, NCCI Bundling Edits, Denial Appeal Letter Generator, Flugelsoft Labs, Health AI');
+    setMeta('author', 'Flugelsoft Labs');
+    setMeta('robots', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+    setMeta('canonical', 'https://flugel-rcm-claim-scrubber-ai.streamlit.app/');
+
+    // Geotargeting (GEO) Meta Tags
+    setMeta('geo.region', 'US-CA');
+    setMeta('geo.placename', 'San Francisco, California');
+    setMeta('geo.position', '37.7749;-122.4194');
+    setMeta('ICBM', '37.7749, -122.4194');
+
+    // Open Graph / Social Media Tags
+    setMeta('og:type', 'website', true);
+    setMeta('og:title', 'Healthcare RCM Multi-Agent Claim Scrubber | Flugelsoft Labs', true);
+    setMeta('og:description', 'Autonomous pre-submission claim scrubbing and payer denial prevention platform by Flugelsoft Labs.', true);
+    setMeta('og:url', 'https://flugel-rcm-claim-scrubber-ai.streamlit.app/', true);
+    setMeta('og:site_name', 'Flugelsoft Labs RCM Platform', true);
+    setMeta('og:image', 'https://img.icons8.com/color/512/medical-history.png', true);
+
+    // Twitter Card Tags
+    setMeta('twitter:card', 'summary_large_image');
+    setMeta('twitter:title', 'Healthcare RCM Multi-Agent Claim Scrubber | Flugelsoft Labs');
+    setMeta('twitter:description', 'Autonomous pre-submission claim scrubbing and payer denial prevention platform.');
+    setMeta('twitter:image', 'https://img.icons8.com/color/512/medical-history.png');
+
+    // Schema.org JSON-LD Structured Data
+    if (!head.querySelector('#rcm-schema-jsonld')) {
+        const script = window.parent.document.createElement('script');
+        script.id = 'rcm-schema-jsonld';
+        script.type = 'application/ld+json';
+        script.text = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Flugelsoft Labs Healthcare RCM Claim Scrubber",
+            "applicationCategory": "BusinessApplication, HealthApplication",
+            "operatingSystem": "Web, Cloud",
+            "description": "Enterprise Healthcare Revenue Cycle Management (RCM) AI platform for pre-submission claim scrubbing, LCD/NCCI compliance, and denial appeals.",
+            "url": "https://flugel-rcm-claim-scrubber-ai.streamlit.app/",
+            "author": {
+                "@type": "Organization",
+                "name": "Flugelsoft Labs",
+                "url": "https://github.com/flugelsoft-01/flugel-rcm-claim-scrubber-ai"
+            },
+            "spatialCoverage": {
+                "@type": "Place",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 37.7749,
+                    "longitude": -122.4194
+                },
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "San Francisco",
+                    "addressRegion": "CA",
+                    "addressCountry": "US"
+                }
+            }
+        });
+        head.appendChild(script);
+    }
+})();
+</script>
+"""
+st.html(SEO_GEO_META_HTML)
 
 CUSTOM_CSS = """
 <style>
@@ -282,14 +369,30 @@ tab1, tab2, tab3 = st.tabs([
 # TAB 1: Single Claim Scrubber & Live Agent Trace
 # =============================================================================
 with tab1:
-    col_sel, col_mode = st.columns([3, 1])
+    col_sel, col_link = st.columns([3, 1])
     with col_sel:
         encounter_options = [
             f"{enc['encounter_id']} - {enc['patient_name']} ({enc['provider'].split(',')[0]})"
             for enc in all_enc_raw
         ]
-        selected_option = st.selectbox("Select Pending Encounter to Audit:", encounter_options, index=0)
+        # Search-Friendly Deep Link Resolution
+        default_enc_id = st.query_params.get("encounter", "ENC-1001")
+        default_index = 0
+        for i, opt in enumerate(encounter_options):
+            if opt.startswith(default_enc_id):
+                default_index = i
+                break
+
+        selected_option = st.selectbox("Select Pending Encounter to Audit:", encounter_options, index=default_index)
         selected_enc_id = selected_option.split(" - ")[0]
+        # Sync SEO search-friendly query params
+        st.query_params["encounter"] = selected_enc_id
+        st.query_params["tab"] = "single-claim"
+
+    canonical_url = f"https://flugel-rcm-claim-scrubber-ai.streamlit.app/?tab=single-claim&encounter={selected_enc_id}"
+    with col_link:
+        st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
+        st.caption(f"🔗 **SEO Canonical URL:** [`?encounter={selected_enc_id}`]({canonical_url})")
 
     # Retrieve data
     current_pkg = st.session_state.audit_cache[selected_enc_id]
@@ -311,6 +414,9 @@ with tab1:
                         <h4 style="margin: 0; color: #1e293b;">{patient['name']} <span class="badge-phi">{selected_enc_id}</span></h4>
                         <p style="margin: 4px 0 0 0; color: #64748b; font-size: 0.9rem;">
                             <strong>DOB:</strong> {patient['dob']} | <strong>MRN:</strong> {patient['mrn']} | <strong>Payer:</strong> {patient['insurance_plan']} | <strong>DOS:</strong> {detail['date_of_service']}
+                        </p>
+                        <p style="margin: 6px 0 0 0; font-size: 0.8rem; color: #0284c7;">
+                            🌐 <strong>Canonical URL:</strong> <a href="{canonical_url}" target="_blank" style="color: #0284c7; text-decoration: none; font-weight: 500;">{canonical_url}</a>
                         </p>
                     </div>
                     <div style="text-align: right;">

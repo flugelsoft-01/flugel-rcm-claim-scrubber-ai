@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:geo="http://www.google.com/geo/schemas/sitemap/1.0">
+  <!-- Homepage & Executive Dashboard -->
+  <url>
+    <loc>https://flugel-rcm-claim-scrubber-ai.streamlit.app/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Encounter 1001: Modifier 25 & Laterality Trap (Harold Finch) -->
+  <url>
+    <loc>https://flugel-rcm-claim-scrubber-ai.streamlit.app/?tab=single-claim&amp;encounter=ENC-1001</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Encounter 1002: Transthoracic Echocardiogram Clean Claim (Eleanor Vance) -->
+  <url>
+    <loc>https://flugel-rcm-claim-scrubber-ai.streamlit.app/?tab=single-claim&amp;encounter=ENC-1002</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Encounter 1003: Brain MRI LCD Medical Necessity Mismatch (Arthur Dent) -->
+  <url>
+    <loc>https://flugel-rcm-claim-scrubber-ai.streamlit.app/?tab=single-claim&amp;encounter=ENC-1003</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Encounter 1004: NCCI Venipuncture Bundling Edit (Beatrice Smith) -->
+  <url>
+    <loc>https://flugel-rcm-claim-scrubber-ai.streamlit.app/?tab=single-claim&amp;encounter=ENC-1004</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Batch Audit Queue -->
+  <url>
+    <loc>https://flugel-rcm-claim-scrubber-ai.streamlit.app/?tab=batch-audit</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- AI Denial Appeal Generator -->
+  <url>
+    <loc>https://flugel-rcm-claim-scrubber-ai.streamlit.app/?tab=appeals</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
