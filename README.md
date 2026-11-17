@@ -1,5 +1,7 @@
 # Healthcare Revenue Cycle Management (RCM) AI Agent & Interactive Demo Application
 
+[![Deploy to Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=flugelsoft-01/flugel-rcm-claim-scrubber-ai&branch=main&mainModule=app.py)
+
 An enterprise-grade, HIPAA-compliant Multi-Agent Healthcare Operations and Pre-Submission Claim Scrubbing System paired with an interactive **Streamlit** Web Application.
 
 ---
